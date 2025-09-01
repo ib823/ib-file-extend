@@ -1,0 +1,19 @@
+{
+  "name": "IB Token App",
+  "build": { "dockerfile": "Dockerfile" },
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "editor.formatOnSave": true
+  },
+  "forwardPorts": [8080],
+  "portsAttributes": {
+    "8080": { "label": "Static App" }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode"
+      ]
+    }
+  }
+}

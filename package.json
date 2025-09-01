@@ -1,0 +1,10 @@
+{
+  "name": "ib-file-extend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/serve-static.mjs",
+    "serve": "node scripts/serve-static.mjs",
+    "check": "node -e \"console.log('OK')\""
+  }
+}

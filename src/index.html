@@ -1,0 +1,65 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IronBox (.ib) — Stateless Save/Resume</title>
+<link rel="stylesheet" href="style.css">
+<body>
+  <header>
+    <h1>IronBox (.ib) — Stateless Save/Resume</h1>
+    <p class="sub">No DB • No uploads • Share via email/QR • Passphrase protected</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Document</h2>
+      <textarea id="state" aria-label="Document JSON">{"title":"Example","items":[{"txt":"hello","done":false}]}</textarea>
+      <div class="hint">Edit JSON to simulate a real document. Rendering is inert (no HTML execution).</div>
+    </section>
+
+    <section class="grid">
+      <div>
+        <h2>Save → Token</h2>
+        <input id="savePass" class="mono" type="password" placeholder="Strong shared passphrase (≥12 chars)">
+        <div class="row">
+          <button id="btnSave">Generate Token</button>
+          <button id="btnEmail" disabled>Email Token</button>
+          <button id="btnCopy" disabled>Copy</button>
+          <button id="btnQR" disabled>QR</button>
+          <button id="btnDownloadIB" disabled>Download .ib</button>
+        </div>
+        <textarea id="tokenOut" readonly placeholder="Generated token will appear here"></textarea>
+        <div class="tiny">Tip: For large tokens, download the <code>.ib</code> file and attach it to email.</div>
+      </div>
+
+      <div>
+        <h2>Resume</h2>
+        <input id="loadPass" class="mono" type="password" placeholder="Enter shared passphrase">
+        <textarea id="tokenIn" placeholder="Paste token here"></textarea>
+        <button id="btnLoad">Load Token</button>
+        <div class="status mono" id="status">idle</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Render (safe)</h2>
+      <pre id="render" class="mono"></pre>
+    </section>
+  </main>
+
+  <footer>
+    <small>Security: AES-256-GCM + PBKDF2-SHA256 (350k iters) • Strict JSON schema • CSP hardened</small>
+  </footer>
+
+  <div id="qrOverlay" class="qr-overlay" hidden>
+    <div class="qr-modal">
+      <div class="qr-head">
+        <strong>Token QR</strong>
+        <button id="qrClose" title="Close" class="qr-close">✕</button>
+      </div>
+      <canvas id="qrCanvas" width="512" height="512"></canvas>
+      <div class="qr-note mono">If this fails to scan or the token is too large, use Email or the .ib file.</div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
